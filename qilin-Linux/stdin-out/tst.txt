@@ -1,0 +1,24 @@
+CHILD: argv: ./pp-test, /bin/ls, -l
+CHILD: child argv: /bin/ls, -l
+CHILD: chd_argv[0]=/bin/ls, basename(chd_argv[0])=ls, chd_argv[1]=-l
+total 184
+-rw-rw-r--  1 zfdou tcs 15297 Apr 23 09:42 2stdio
+-rw-rw-r--  1 zfdou tcs  1513 Apr 23 09:44 2stdio.c
+-rw-rw-r--  1 zfdou tcs    32 Apr 23 09:36 2tst.txt
+-rw-rw-r--  1 zfdou tcs     0 May  7 10:05 a.out
+-rw-r--r--  1 zfdou tcs  7238 May  6 15:33 bak20140505.nc.c
+-rwxrwxr-x  1 zfdou tcs 24854 Apr 30 16:32 nc
+-rw-r--r--  1 zfdou tcs  7514 May  6 15:46 nc.c
+-rw-rw-r--  1 zfdou tcs 24854 Apr 30 16:33 ncexe.out
+-rw-rw-r--  1 zfdou tcs  7560 Apr 30 14:21 out.log
+-rw-rw-r--  1 zfdou tcs  7146 Apr 30 16:13 out2.log
+-rw-rw-r--  1 zfdou tcs  7255 Apr 30 15:12 out3.log
+-rw-rw-r--  1 zfdou tcs  7146 Apr 30 16:14 out4.log
+-rw-rw-r--  1 zfdou tcs  2869 Apr 23 09:17 output.stdio
+-rw-rw-r--  1 zfdou tcs  1064 Apr 23 09:17 output.stdio.c
+-rwxrwxr-x  1 zfdou tcs 17152 May  7 10:04 pp-test
+-rw-r--r--  1 zfdou tcs  2032 May  7 10:04 pp-test.c
+-rwxrwxr-x  1 zfdou tcs 15297 Apr 23 09:42 stdio
+-rw-r--r--  1 zfdou tcs   990 Apr 23 10:25 stdio.c
+-rw-rw-r--  1 zfdou tcs  1170 May  7 10:06 tst.txt
+PARENT (PID=22612, PPID=21153) END!!
