@@ -1,0 +1,294 @@
+
+redalm:     file format elf32-i386
+
+Disassembly of section .init:
+
+080482c0 <_init>:
+ 80482c0:	55                   	push   %ebp
+ 80482c1:	89 e5                	mov    %esp,%ebp
+ 80482c3:	53                   	push   %ebx
+ 80482c4:	83 ec 04             	sub    $0x4,%esp
+ 80482c7:	e8 00 00 00 00       	call   80482cc <_init+0xc>
+ 80482cc:	5b                   	pop    %ebx
+ 80482cd:	81 c3 c8 13 00 00    	add    $0x13c8,%ebx
+ 80482d3:	8b 93 fc ff ff ff    	mov    -0x4(%ebx),%edx
+ 80482d9:	85 d2                	test   %edx,%edx
+ 80482db:	74 05                	je     80482e2 <_init+0x22>
+ 80482dd:	e8 1e 00 00 00       	call   8048300 <__gmon_start__@plt>
+ 80482e2:	e8 b9 00 00 00       	call   80483a0 <frame_dummy>
+ 80482e7:	e8 34 02 00 00       	call   8048520 <__do_global_ctors_aux>
+ 80482ec:	58                   	pop    %eax
+ 80482ed:	5b                   	pop    %ebx
+ 80482ee:	c9                   	leave  
+ 80482ef:	c3                   	ret    
+Disassembly of section .plt:
+
+080482f0 <__gmon_start__@plt-0x10>:
+ 80482f0:	ff 35 98 96 04 08    	pushl  0x8049698
+ 80482f6:	ff 25 9c 96 04 08    	jmp    *0x804969c
+ 80482fc:	00 00                	add    %al,(%eax)
+	...
+
+08048300 <__gmon_start__@plt>:
+ 8048300:	ff 25 a0 96 04 08    	jmp    *0x80496a0
+ 8048306:	68 00 00 00 00       	push   $0x0
+ 804830b:	e9 e0 ff ff ff       	jmp    80482f0 <_init+0x30>
+
+08048310 <__libc_start_main@plt>:
+ 8048310:	ff 25 a4 96 04 08    	jmp    *0x80496a4
+ 8048316:	68 08 00 00 00       	push   $0x8
+ 804831b:	e9 d0 ff ff ff       	jmp    80482f0 <_init+0x30>
+
+08048320 <printf@plt>:
+ 8048320:	ff 25 a8 96 04 08    	jmp    *0x80496a8
+ 8048326:	68 10 00 00 00       	push   $0x10
+ 804832b:	e9 c0 ff ff ff       	jmp    80482f0 <_init+0x30>
+
+08048330 <__stack_chk_fail@plt>:
+ 8048330:	ff 25 ac 96 04 08    	jmp    *0x80496ac
+ 8048336:	68 18 00 00 00       	push   $0x18
+ 804833b:	e9 b0 ff ff ff       	jmp    80482f0 <_init+0x30>
+Disassembly of section .text:
+
+08048340 <_start>:
+ 8048340:	31 ed                	xor    %ebp,%ebp
+ 8048342:	5e                   	pop    %esi
+ 8048343:	89 e1                	mov    %esp,%ecx
+ 8048345:	83 e4 f0             	and    $0xfffffff0,%esp
+ 8048348:	50                   	push   %eax
+ 8048349:	54                   	push   %esp
+ 804834a:	52                   	push   %edx
+ 804834b:	68 b0 84 04 08       	push   $0x80484b0
+ 8048350:	68 c0 84 04 08       	push   $0x80484c0
+ 8048355:	51                   	push   %ecx
+ 8048356:	56                   	push   %esi
+ 8048357:	68 ef 83 04 08       	push   $0x80483ef
+ 804835c:	e8 af ff ff ff       	call   8048310 <__libc_start_main@plt>
+ 8048361:	f4                   	hlt    
+ 8048362:	90                   	nop    
+ 8048363:	90                   	nop    
+ 8048364:	90                   	nop    
+ 8048365:	90                   	nop    
+ 8048366:	90                   	nop    
+ 8048367:	90                   	nop    
+ 8048368:	90                   	nop    
+ 8048369:	90                   	nop    
+ 804836a:	90                   	nop    
+ 804836b:	90                   	nop    
+ 804836c:	90                   	nop    
+ 804836d:	90                   	nop    
+ 804836e:	90                   	nop    
+ 804836f:	90                   	nop    
+
+08048370 <__do_global_dtors_aux>:
+ 8048370:	55                   	push   %ebp
+ 8048371:	89 e5                	mov    %esp,%ebp
+ 8048373:	83 ec 08             	sub    $0x8,%esp
+ 8048376:	80 3d bc 96 04 08 00 	cmpb   $0x0,0x80496bc
+ 804837d:	74 0c                	je     804838b <__do_global_dtors_aux+0x1b>
+ 804837f:	eb 1c                	jmp    804839d <__do_global_dtors_aux+0x2d>
+ 8048381:	83 c0 04             	add    $0x4,%eax
+ 8048384:	a3 b8 96 04 08       	mov    %eax,0x80496b8
+ 8048389:	ff d2                	call   *%edx
+ 804838b:	a1 b8 96 04 08       	mov    0x80496b8,%eax
+ 8048390:	8b 10                	mov    (%eax),%edx
+ 8048392:	85 d2                	test   %edx,%edx
+ 8048394:	75 eb                	jne    8048381 <__do_global_dtors_aux+0x11>
+ 8048396:	c6 05 bc 96 04 08 01 	movb   $0x1,0x80496bc
+ 804839d:	c9                   	leave  
+ 804839e:	c3                   	ret    
+ 804839f:	90                   	nop    
+
+080483a0 <frame_dummy>:
+ 80483a0:	55                   	push   %ebp
+ 80483a1:	89 e5                	mov    %esp,%ebp
+ 80483a3:	83 ec 08             	sub    $0x8,%esp
+ 80483a6:	a1 bc 95 04 08       	mov    0x80495bc,%eax
+ 80483ab:	85 c0                	test   %eax,%eax
+ 80483ad:	74 12                	je     80483c1 <frame_dummy+0x21>
+ 80483af:	b8 00 00 00 00       	mov    $0x0,%eax
+ 80483b4:	85 c0                	test   %eax,%eax
+ 80483b6:	74 09                	je     80483c1 <frame_dummy+0x21>
+ 80483b8:	c7 04 24 bc 95 04 08 	movl   $0x80495bc,(%esp)
+ 80483bf:	ff d0                	call   *%eax
+ 80483c1:	c9                   	leave  
+ 80483c2:	c3                   	ret    
+ 80483c3:	90                   	nop    
+
+080483c4 <print>:
+#include <stdio.h>
+
+int print(char*fmt, ...)
+{
+ 80483c4:	55                   	push   %ebp
+ 80483c5:	89 e5                	mov    %esp,%ebp
+ 80483c7:	83 ec 28             	sub    $0x28,%esp
+	int a;
+	a++;
+ 80483ca:	83 45 fc 01          	addl   $0x1,-0x4(%ebp)
+	printf("%d, %s\n", a, fmt);
+ 80483ce:	8b 45 08             	mov    0x8(%ebp),%eax
+ 80483d1:	89 44 24 08          	mov    %eax,0x8(%esp) ===> input fmt
+ 80483d5:	8b 45 fc             	mov    -0x4(%ebp),%eax
+ 80483d8:	89 44 24 04          	mov    %eax,0x4(%esp) ----> input a
+ 80483dc:	c7 04 24 70 85 04 08 	movl   $0x8048570,(%esp) ----> input ".."
+ 80483e3:	e8 38 ff ff ff       	call   8048320 <printf@plt>
+	return 0;
+ 80483e8:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+ 80483ed:	c9                   	leave  
+ 80483ee:	c3                   	ret    
+
+080483ef <main>:
+
+int main(int argc, char **argv)
+{
+ 80483ef:	8d 4c 24 04          	lea    0x4(%esp),%ecx
+ 80483f3:	83 e4 f0             	and    $0xfffffff0,%esp
+ 80483f6:	ff 71 fc             	pushl  -0x4(%ecx)
+ 80483f9:	55                   	push   %ebp
+ 80483fa:	89 e5                	mov    %esp,%ebp
+ 80483fc:	51                   	push   %ecx
+ 80483fd:	83 ec 34             	sub    $0x34,%esp
+ 8048400:	8b 41 04             	mov    0x4(%ecx),%eax
+ 8048403:	89 45 d8             	mov    %eax,-0x28(%ebp)
+ 8048406:	65 a1 14 00 00 00    	mov    %gs:0x14,%eax
+ 804840c:	89 45 f8             	mov    %eax,-0x8(%ebp)
+ 804840f:	31 c0                	xor    %eax,%eax
+	char a[]="1234";
+ 8048411:	a1 8d 85 04 08       	mov    0x804858d,%eax
+ 8048416:	89 45 e8             	mov    %eax,-0x18(%ebp)
+ 8048419:	0f b6 05 91 85 04 08 	movzbl 0x8048591,%eax
+ 8048420:	88 45 ec             	mov    %al,-0x14(%ebp)
+	char b[]="5678";
+ 8048423:	a1 92 85 04 08       	mov    0x8048592,%eax
+ 8048428:	89 45 e3             	mov    %eax,-0x1d(%ebp)
+ 804842b:	0f b6 05 96 85 04 08 	movzbl 0x8048596,%eax
+ 8048432:	88 45 e7             	mov    %al,-0x19(%ebp)
+	char c[]="90ab";
+ 8048435:	a1 97 85 04 08       	mov    0x8048597,%eax
+ 804843a:	89 45 de             	mov    %eax,-0x22(%ebp)
+ 804843d:	0f b6 05 9b 85 04 08 	movzbl 0x804859b,%eax
+ 8048444:	88 45 e2             	mov    %al,-0x1e(%ebp)
+	char str[]="a=%x,b=%x\n";
+ 8048447:	a1 9c 85 04 08       	mov    0x804859c,%eax
+ 804844c:	89 45 ed             	mov    %eax,-0x13(%ebp)
+ 804844f:	a1 a0 85 04 08       	mov    0x80485a0,%eax
+ 8048454:	89 45 f1             	mov    %eax,-0xf(%ebp)
+ 8048457:	0f b7 05 a4 85 04 08 	movzwl 0x80485a4,%eax
+ 804845e:	66 89 45 f5          	mov    %ax,-0xb(%ebp)
+ 8048462:	0f b6 05 a6 85 04 08 	movzbl 0x80485a6,%eax
+ 8048469:	88 45 f7             	mov    %al,-0x9(%ebp)
+	printf("I am back, %s\n","tudou");
+ 804846c:	c7 44 24 04 78 85 04 	movl   $0x8048578,0x4(%esp)
+ 8048473:	08 
+ 8048474:	c7 04 24 7e 85 04 08 	movl   $0x804857e,(%esp)
+ 804847b:	e8 a0 fe ff ff       	call   8048320 <printf@plt>
+	printf(str);
+ 8048480:	8d 45 ed             	lea    -0x13(%ebp),%eax
+ 8048483:	89 04 24             	mov    %eax,(%esp)
+ 8048486:	e8 95 fe ff ff       	call   8048320 <printf@plt>
+		
+	return 0;
+ 804848b:	b8 00 00 00 00       	mov    $0x0,%eax
+}
+ 8048490:	8b 55 f8             	mov    -0x8(%ebp),%edx
+ 8048493:	65 33 15 14 00 00 00 	xor    %gs:0x14,%edx
+ 804849a:	74 05                	je     80484a1 <main+0xb2>
+ 804849c:	e8 8f fe ff ff       	call   8048330 <__stack_chk_fail@plt>
+ 80484a1:	83 c4 34             	add    $0x34,%esp
+ 80484a4:	59                   	pop    %ecx
+ 80484a5:	5d                   	pop    %ebp
+ 80484a6:	8d 61 fc             	lea    -0x4(%ecx),%esp
+ 80484a9:	c3                   	ret    
+ 80484aa:	90                   	nop    
+ 80484ab:	90                   	nop    
+ 80484ac:	90                   	nop    
+ 80484ad:	90                   	nop    
+ 80484ae:	90                   	nop    
+ 80484af:	90                   	nop    
+
+080484b0 <__libc_csu_fini>:
+ 80484b0:	55                   	push   %ebp
+ 80484b1:	89 e5                	mov    %esp,%ebp
+ 80484b3:	5d                   	pop    %ebp
+ 80484b4:	c3                   	ret    
+ 80484b5:	8d 74 26 00          	lea    0x0(%esi),%esi
+ 80484b9:	8d bc 27 00 00 00 00 	lea    0x0(%edi),%edi
+
+080484c0 <__libc_csu_init>:
+ 80484c0:	55                   	push   %ebp
+ 80484c1:	89 e5                	mov    %esp,%ebp
+ 80484c3:	57                   	push   %edi
+ 80484c4:	56                   	push   %esi
+ 80484c5:	53                   	push   %ebx
+ 80484c6:	e8 4f 00 00 00       	call   804851a <__i686.get_pc_thunk.bx>
+ 80484cb:	81 c3 c9 11 00 00    	add    $0x11c9,%ebx
+ 80484d1:	83 ec 0c             	sub    $0xc,%esp
+ 80484d4:	e8 e7 fd ff ff       	call   80482c0 <_init>
+ 80484d9:	8d bb 18 ff ff ff    	lea    -0xe8(%ebx),%edi
+ 80484df:	8d 83 18 ff ff ff    	lea    -0xe8(%ebx),%eax
+ 80484e5:	29 c7                	sub    %eax,%edi
+ 80484e7:	c1 ff 02             	sar    $0x2,%edi
+ 80484ea:	85 ff                	test   %edi,%edi
+ 80484ec:	74 24                	je     8048512 <__libc_csu_init+0x52>
+ 80484ee:	31 f6                	xor    %esi,%esi
+ 80484f0:	8b 45 10             	mov    0x10(%ebp),%eax
+ 80484f3:	89 44 24 08          	mov    %eax,0x8(%esp)
+ 80484f7:	8b 45 0c             	mov    0xc(%ebp),%eax
+ 80484fa:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 80484fe:	8b 45 08             	mov    0x8(%ebp),%eax
+ 8048501:	89 04 24             	mov    %eax,(%esp)
+ 8048504:	ff 94 b3 18 ff ff ff 	call   *-0xe8(%ebx,%esi,4)
+ 804850b:	83 c6 01             	add    $0x1,%esi
+ 804850e:	39 f7                	cmp    %esi,%edi
+ 8048510:	75 de                	jne    80484f0 <__libc_csu_init+0x30>
+ 8048512:	83 c4 0c             	add    $0xc,%esp
+ 8048515:	5b                   	pop    %ebx
+ 8048516:	5e                   	pop    %esi
+ 8048517:	5f                   	pop    %edi
+ 8048518:	5d                   	pop    %ebp
+ 8048519:	c3                   	ret    
+
+0804851a <__i686.get_pc_thunk.bx>:
+ 804851a:	8b 1c 24             	mov    (%esp),%ebx
+ 804851d:	c3                   	ret    
+ 804851e:	90                   	nop    
+ 804851f:	90                   	nop    
+
+08048520 <__do_global_ctors_aux>:
+ 8048520:	55                   	push   %ebp
+ 8048521:	89 e5                	mov    %esp,%ebp
+ 8048523:	53                   	push   %ebx
+ 8048524:	83 ec 04             	sub    $0x4,%esp
+ 8048527:	a1 ac 95 04 08       	mov    0x80495ac,%eax
+ 804852c:	83 f8 ff             	cmp    $0xffffffff,%eax
+ 804852f:	74 12                	je     8048543 <__do_global_ctors_aux+0x23>
+ 8048531:	31 db                	xor    %ebx,%ebx
+ 8048533:	ff d0                	call   *%eax
+ 8048535:	8b 83 a8 95 04 08    	mov    0x80495a8(%ebx),%eax
+ 804853b:	83 eb 04             	sub    $0x4,%ebx
+ 804853e:	83 f8 ff             	cmp    $0xffffffff,%eax
+ 8048541:	75 f0                	jne    8048533 <__do_global_ctors_aux+0x13>
+ 8048543:	83 c4 04             	add    $0x4,%esp
+ 8048546:	5b                   	pop    %ebx
+ 8048547:	5d                   	pop    %ebp
+ 8048548:	c3                   	ret    
+ 8048549:	90                   	nop    
+ 804854a:	90                   	nop    
+ 804854b:	90                   	nop    
+Disassembly of section .fini:
+
+0804854c <_fini>:
+ 804854c:	55                   	push   %ebp
+ 804854d:	89 e5                	mov    %esp,%ebp
+ 804854f:	53                   	push   %ebx
+ 8048550:	83 ec 04             	sub    $0x4,%esp
+ 8048553:	e8 00 00 00 00       	call   8048558 <_fini+0xc>
+ 8048558:	5b                   	pop    %ebx
+ 8048559:	81 c3 3c 11 00 00    	add    $0x113c,%ebx
+ 804855f:	e8 0c fe ff ff       	call   8048370 <__do_global_dtors_aux>
+ 8048564:	59                   	pop    %ecx
+ 8048565:	5b                   	pop    %ebx
+ 8048566:	c9                   	leave  
+ 8048567:	c3                   	ret    

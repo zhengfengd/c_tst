@@ -1,0 +1,212 @@
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
+
+#define PROB_NUM 3
+#define LINE_NUM 10
+#define COLUM_NUM 10
+#define BLINK_SPAN 1
+#define DIVID_COFF_X 4
+#define DIVID_COFF_Y 3
+
+typedef unsigned char UCHAR;
+
+unsigned char g_pic[LINE_NUM][COLUM_NUM]={0};
+
+int generate_random( UCHAR *buf, int line, int colum)
+{
+	int i, j;
+	
+	assert( line!=0 && colum!=0 );
+	for( i=0; i<line; i++)
+	  for( j=0; j<colum; j++)
+	  {
+	  	buf[ i*line + j ] = random()%PROB_NUM;
+	  }
+	
+	return 0;
+}
+
+typedef enum{
+	NO_OVERFLOW,
+	ONLY_X_OVERFLOW,
+	ONLY_Y_OVERFLOW,
+	X_Y_OVERFLOW
+}EFLAG;
+
+int generate_random_p( UCHAR *buf, int line_b, int line_e, int line, int colum_b, int colum_e, int colum)
+{
+	int i, j;
+	EFLAG flag;
+	
+	if( line_b<=line_e && colum_b<=colum_e )
+		flag = NO_OVERFLOW;
+	else if(line_b>line_e  && colum_b<=colum_e )
+		flag = ONLY_X_OVERFLOW;
+	else if( line_b<=line_e && colum_b>colum_e )
+		flag = ONLY_Y_OVERFLOW;
+	else if(line_b>line_e  && colum_b>colum_e )
+		flag = X_Y_OVERFLOW;
+	else{
+		printf("line%d:wrong branch\n", __LINE__);
+		assert(0);		
+	}
+	
+	switch(flag){
+	case 	NO_OVERFLOW:
+		for( i=line_b; i<line_e; i++)
+		  for( j=colum_b; j<colum_e; j++)
+		  {
+		  	buf[ i*line + j ] = random()%PROB_NUM;
+		  }
+		break;
+	case 	ONLY_X_OVERFLOW:
+		{
+		for( i=line_b; i<line; i++)
+		  for( j=colum_b; j<colum_e; j++)
+		  {
+		  	buf[ i*line + j ] = random()%PROB_NUM;
+		  }
+		  
+		for( i=0; i<line_e; i++)
+		  for( j=colum_b; j<colum_e; j++)
+		  {
+		  	buf[ i*line + j ] = random()%PROB_NUM;
+		  }
+		}
+		break;
+	case 	ONLY_Y_OVERFLOW:
+		{
+		for( i=line_b; i<line_e; i++)
+		  for( j=colum_b; j<colum; j++)
+		  {
+		  	buf[ i*line + j ] = random()%PROB_NUM;
+		  }
+		  
+		for( i=line_b; i<line_e; i++)
+		  for( j=0; j<colum_e; j++)
+		  {
+		  	buf[ i*line + j ] = random()%PROB_NUM;
+		  }
+		}
+		break;
+	case 	X_Y_OVERFLOW:
+		for( i=line_b; i<line; i++)
+		  for( j=colum_b; j<colum; j++)
+		  {
+		  	buf[ i*line + j ] = random()%PROB_NUM;
+		  }
+		for( i=0; i<line_e; i++)
+		  for( j=0; j<colum_e; j++)
+		  {
+		  	buf[ i*line + j ] = random()%PROB_NUM;
+		  }
+		break;
+	default:
+		printf("line%d:wrong branch\n", __LINE__);
+		assert(0);
+		
+	}
+		
+	return 0;
+}
+
+UCHAR getDispChar( UCHAR c)
+{
+	switch(c){
+	case 1:
+		return '*';
+		break;
+	case 2:
+		return ' ';
+		break;
+	case 0:
+	default:
+		return ' ';
+		break;
+	}
+}
+
+int display_buf( UCHAR *buf, int line, int colum)
+{
+	int i, j;
+	
+	assert( line!=0 && colum!=0 );
+	for( i=0; i<line; i++)
+	{
+	  if( i==0 ){
+	  	for( j=0; j<colum*2; j++) printf("%c", '=');
+	  	printf("\n");
+	  }
+	  for( j=0; j<colum; j++)
+	  {
+	  	printf("%c ", getDispChar( buf[ i*line + j ]) );
+	  }
+	  printf("\n");
+	  if( i == line-1 ){
+	  	for( j=0; j<colum*2; j++) printf("%c", '=');
+	  	printf("\n");
+	  }
+	}
+	return 0;
+}
+
+int main(int argc, char **argv)
+{
+	int line, colum, i, j, count, step_x, step_y;
+	UCHAR *pic;	
+	{
+		int off = 0;
+		char a[]="1234567890";
+		char b[]="abcdefghij";
+		printf("%p, %p\n", a, b);
+		off = b -a;
+		printf("off=%d\n", off);
+		if(off>0)
+			printf("%s", b[-off]);
+		else
+			printf("%s", a[off]);
+		return 0;
+	}
+	
+	if(argc == 3 ){
+		line = atoi( argv[1] );
+		colum = atoi( argv[2] );
+		assert( line!=0 && colum!=0 );
+	}else{
+		line = LINE_NUM;
+		colum = COLUM_NUM;
+	}
+	pic = (UCHAR *)malloc(line*colum);
+	if(!pic){
+		printf("line%d: fail to malloc\n", __LINE__);
+		goto error1 ;
+	}
+	
+	i=0;
+	j=0;
+	count = 0;
+	step_x = 0;
+	step_y = 0;
+	step_x = line / DIVID_COFF_X;
+	step_y = colum / DIVID_COFF_Y;
+		
+	while(1){
+		//generate_random(pic, line, colum);
+		generate_random_p(pic, i, (i+step_x)%line, line, j, (j+step_y)%colum , colum);
+		i = (i+step_x)%line;
+		j = (j+step_y)%colum;
+		display_buf(pic, line, colum);
+		sleep(BLINK_SPAN);
+		/*if(count++ %9 == 8){
+			generate_random(pic, line, colum);
+			display_buf(pic, line, colum);
+		}*/
+	}
+	
+error1:
+	free(pic);
+	
+	return 0;
+	
+}
